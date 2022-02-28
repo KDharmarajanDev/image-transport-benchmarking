@@ -58,7 +58,7 @@ class image_folder_publisher(Node):
     def run(self):
         try:
             if self.total_imgs <= self.seq:
-                time.sleep(30)
+                time.sleep(15)
                 self.stop_callback()
                 return
             if len(self.files_in_dir) <= self.img:
