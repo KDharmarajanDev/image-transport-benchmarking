@@ -16,7 +16,7 @@ import fogros2
 
 def generate_launch_description():
     ld = FogROSLaunchDescription()
-    machine1 = fogros2.AWS(region="us-west-1", ec2_instance_type="t2.small", ami_image="ami-09175f2ca3c3dc67c")
+    machine1 = fogros2.AWS(region="us-west-1", ec2_instance_type="t2.medium", ami_image="ami-09175f2ca3c3dc67c")
     img_publisher_node = Node(
         package="image_transport_benchmarker", executable="image_pub", output="screen")
     image_listener_node = fogros2.CloudNode(

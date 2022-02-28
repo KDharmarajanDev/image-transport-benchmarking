@@ -23,30 +23,30 @@ def generate_launch_description():
         package="image_transport_benchmarker", executable="image_pub", output="screen")
     image_listener_node = Node(
         package="image_transport_benchmarker", executable="raw_test_cloud", output="screen")
-    encoder_node = Node(
-        package='image_transport', executable='republish', output='screen',
-            name='republish_node2', arguments=[
-                'raw',  # Input
-                intermediate_transport,  # Output
-            ], remappings=[
-                ('in', topic_name),
-                ('out/' + intermediate_transport, topic_name + "/" + intermediate_transport ),
-            ])
-    decoder_node = Node(
-            package='image_transport', executable='republish', output='screen',
-                name='republish_node', arguments=[
-                    intermediate_transport,  # Input
-                    'raw',  # Output
-                ], remappings=[
-                    ('in/' + intermediate_transport, topic_name + "/" + intermediate_transport),
-                    ('out', new_cloud_topic_name),
-                ])
+    # encoder_node = Node(
+    #     package='image_transport', executable='republish', output='screen',
+    #         name='republish_node2', arguments=[
+    #             'raw',  # Input
+    #             intermediate_transport,  # Output
+    #         ], remappings=[
+    #             ('in', topic_name),
+    #             ('out/' + intermediate_transport, topic_name + "/" + 'repub' ),
+    #         ])
+    # decoder_node = Node(
+    #         package='image_transport', executable='republish', output='screen',
+    #             name='republish_node', arguments=[
+    #                 intermediate_transport,  # Input
+    #                 'raw',  # Output
+    #             ], remappings=[
+    #                 ('in/' + intermediate_transport, topic_name + "/" + intermediate_transport),
+    #                 ('out', new_cloud_topic_name),
+    #             ])
 
     image_listener_node_robot = Node(
         package="image_transport_benchmarker", executable="raw_test", output="screen")
     ld.add_action(img_publisher_node)
     ld.add_action(image_listener_node)
     ld.add_action(image_listener_node_robot)    
-    ld.add_action(encoder_node)
-    ld.add_action(decoder_node)
+    # ld.add_action(encoder_node)
+    # ld.add_action(decoder_node)
     return ld
