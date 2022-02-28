@@ -49,6 +49,8 @@ class LatencyTest(Node):
         if not self.first_received_time:
             self.first_received_time = curr_time
         self.last_received_time = curr_time
+        while arr_index >= len(self.latencies):
+            self.latencies.append(-1)
         self.latencies[arr_index] = curr_time - self.source_timestamps[arr_index]
         self.total_latency += self.latencies[arr_index]
         self.cloud_received_images += 1
