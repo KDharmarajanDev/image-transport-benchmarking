@@ -22,7 +22,7 @@ def generate_launch_description():
     img_publisher_node = Node(
         package="image_transport_benchmarker", executable="image_pub", output="screen")
     image_listener_node = Node(
-        package="image_transport_benchmarker", executable="theora_test_cloud", output="screen", parameters=[{
+        package="image_transport_benchmarker", executable="png_test_cloud", output="screen", parameters=[{
             "/camera/image_raw/compressed/format": "png"
         }])
     encoder_node = Node(
@@ -45,7 +45,7 @@ def generate_launch_description():
                 ])
 
     image_listener_node_robot = Node(
-        package="image_transport_benchmarker", executable="theora_test", output="screen")
+        package="image_transport_benchmarker", executable="png_test", output="screen")
     ld.add_action(img_publisher_node)
     ld.add_action(image_listener_node)
     ld.add_action(image_listener_node_robot)    

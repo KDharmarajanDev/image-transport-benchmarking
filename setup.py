@@ -23,12 +23,12 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'jpeg_test = image_transport_benchmarker.jpeg_test:main',
+            'png_test = image_transport_benchmarker.png_test:main',
             'theora_test = image_transport_benchmarker.theora_test:main',
             'h264_test = image_transport_benchmarker.h264_test:main',
             'raw_test = image_transport_benchmarker.raw_test:main',
 
-            'jpeg_test_cloud = image_transport_benchmarker.jpeg_test_cloud:main',
+            'png_test_cloud = image_transport_benchmarker.png_test_cloud:main',
             'theora_test_cloud = image_transport_benchmarker.theora_test_cloud:main',
             'h264_test_cloud = image_transport_benchmarker.h264_test_cloud:main',
             'raw_test_cloud = image_transport_benchmarker.raw_test_cloud:main',
