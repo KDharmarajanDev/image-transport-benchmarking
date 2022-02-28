@@ -33,7 +33,8 @@ setup(
             'h264_test_cloud = image_transport_benchmarker.h264_test_cloud:main',
             'raw_test_cloud = image_transport_benchmarker.raw_test_cloud:main',
 
-            'image_pub = image_transport_benchmarker.image_folder_publisher:main'
+            'image_pub = image_transport_benchmarker.image_folder_publisher:main',
+            'video_pub = image_transport_benchmarker.video_publisher:main'
         ],
     },
 )
