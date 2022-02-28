@@ -35,7 +35,7 @@ class image_folder_publisher(Node):
 
         self.seq = 0
 
-        self._image_folder = '/home/karthikdharmarajan/Documents/rgbd_dataset_freiburg1_xyz/rgb'
+        self._image_folder = '/home/gdpmobile5/rgbd_dataset_freiburg1_xyz/rgb'
         if self._image_folder == '' or not os.path.exists(self._image_folder) or not os.path.isdir(self._image_folder):
             sys.exit(0)
         # print(f"{self.__app_name} Reading images from {self._image_folder}")
