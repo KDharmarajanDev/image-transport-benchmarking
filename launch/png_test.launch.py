@@ -21,7 +21,10 @@ def generate_launch_description():
         package="image_transport_benchmarker", executable="image_pub", output="screen")
     image_listener_node = fogros2.CloudNode(
         package="image_transport_benchmarker", executable="jpeg_test_cloud", output="screen",
-        machine = machine1, stream_topics=[('/camera/image_raw', 'compressed')])
+        machine = machine1, stream_topics=[('/camera/image_raw', 'compressed')],
+        parameters=[{
+            "/camera/image_raw/compressed/format": "png"
+        }])
     image_listener_node_robot = Node(
         package="image_transport_benchmarker", executable="jpeg_test", output="screen")
     ld.add_action(img_publisher_node)
