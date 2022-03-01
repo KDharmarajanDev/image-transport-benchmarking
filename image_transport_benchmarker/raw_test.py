@@ -7,7 +7,7 @@ import rclpy
 def main(args=None):
     rclpy.init(args=args)
 
-    compression_rate_test = CompressionRateTest('/camera/image_raw', Image)
+    compression_rate_test = CompressionRateTest('/camera/image_raw/raw', Image)
     latency_test = LatencyTest('/camera/image_raw')
     
     executor = rclpy.executors.MultiThreadedExecutor()
