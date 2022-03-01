@@ -8,7 +8,7 @@ def main(args=None):
     rclpy.init(args=args)
 
     # compression_rate_test = CompressionRateTest('/camera/image_raw', Image)
-    acknowledge_test = AcknowledgeTest('/camera/image_raw/cloud')
+    acknowledge_test = AcknowledgeTest('/camera/image_raw')
     
     executor = rclpy.executors.MultiThreadedExecutor()
     # executor.add_node(compression_rate_test)
