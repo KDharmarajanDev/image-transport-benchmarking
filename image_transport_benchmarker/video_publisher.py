@@ -23,7 +23,7 @@ class image_folder_publisher(Node):
 
         self._cv_bridge = CvBridge()
 
-        self.total_imgs = 3000
+        self.total_imgs = 600
 
         self._topic_name = '/camera/image_raw'
         self.get_logger().info(f"{self.__app_name} (topic_name) Publishing Images to topic {self._topic_name}")
@@ -60,21 +60,15 @@ class image_folder_publisher(Node):
                 time.sleep(15)
                 self.stop_callback()
                 return
-            if len(self.files_in_dir) <= self.img:
-                self.img = 0
-            f = self.files_in_dir[self.img]
-            if isfile(join(self._image_folder, f)):
-                rval, cv_image = self.vc.read()
-                if cv_image is not None:
-                    ros_msg = self._cv_bridge.cv2_to_imgmsg(cv_image, "bgr8")
-                    ros_msg.header.frame_id = str(self.seq)
-                    ros_msg.header.stamp = self.get_clock().now().to_msg()
-                    self._image_publisher.publish(ros_msg)
-                    self.seq += 1
-                    # print(f"{self.__app_name} Published {join(self._image_folder, f)}")
-                else:
-                    print(f"{self.__app_name} Invalid image file {join(self._image_folder, f)}")
-                self.img += 1
+            rval, cv_image = self.vc.read()
+            if cv_image is not None:
+                ros_msg = self._cv_bridge.cv2_to_imgmsg(cv_image, "bgr8")
+                ros_msg.header.frame_id = str(self.seq)
+                ros_msg.header.stamp = self.get_clock().now().to_msg()
+                self._image_publisher.publish(ros_msg)
+                self.seq += 1
+                # print(f"{self.__app_name} Published {join(self._image_folder, f)}")
+            self.img += 1
         except CvBridgeError as e:
             print(e)
 
