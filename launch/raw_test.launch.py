@@ -19,6 +19,28 @@ def generate_launch_description():
     machine1 = fogros2.AWS(region="us-west-1", ec2_instance_type="t2.medium", ami_image="ami-09175f2ca3c3dc67c")
     img_publisher_node = Node(
         package="image_transport_benchmarker", executable="image_pub", output="screen")
+    img_encoder_node = Node(
+        package="image_transport", executable="republish", output="screen",
+        arguments=[
+                    'raw',  # Input
+                    'raw',  # Output
+                ],
+        remappings=[
+            ("in", "/camera/image_raw"),
+            ("out", "/camera/image_raw/raw")
+        ]
+    )
+    img_decoder_node = fogros2.CloudNode(
+        package="image_transport", executable="republish", output="screen", machine = machine1,
+        arguments=[
+                    'raw',  # Input
+                    'raw',  # Output
+                ],
+        remappings=[
+            ("in", "/camera/image_raw/raw"),
+            ("out", "/camera/image_raw/cloud")
+        ]
+    )
     image_listener_node = fogros2.CloudNode(
         package="image_transport_benchmarker", executable="raw_test_cloud", output="screen",
         machine = machine1)
@@ -27,4 +49,6 @@ def generate_launch_description():
     ld.add_action(img_publisher_node)
     ld.add_action(image_listener_node)
     ld.add_action(image_listener_node_robot)
+    ld.add_action(img_encoder_node)
+    ld.add_action(img_decoder_node)
     return ld
