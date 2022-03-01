@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from __future__ import print_function
+from math import floor
 
 import sys
 import os
@@ -31,6 +32,7 @@ class image_folder_publisher(Node):
         self._image_publisher = self.create_publisher(Image, self._topic_name, 10)
 
         self._rate = 30
+        self.prev_time = None
         self.get_logger().info(f"{self.__app_name} (publish_rate) Publish rate set to {self._rate} hz")
 
         self.seq = 0
@@ -53,6 +55,7 @@ class image_folder_publisher(Node):
 
     def start_images(self, msg):
         self.get_logger().info("Starting to send images!")
+        self.prev_time = time.time()
         self.timer = self.create_timer(1 / self._rate, self.run)
 
     def run(self):
@@ -71,11 +74,11 @@ class image_folder_publisher(Node):
                     ros_msg.header.frame_id = str(self.seq)
                     ros_msg.header.stamp = self.get_clock().now().to_msg()
                     self._image_publisher.publish(ros_msg)
-                    self.seq += 1
                     # print(f"{self.__app_name} Published {join(self._image_folder, f)}")
-                else:
-                    print(f"{self.__app_name} Invalid image file {join(self._image_folder, f)}")
-                self.img += 1
+                curr_time = time.time()
+                elapsed_images = max(floor((curr_time - self.prev_time) / self._rate), 1)
+                self.img += elapsed_images
+                self.seq += elapsed_images
         except CvBridgeError as e:
             print(e)
 
